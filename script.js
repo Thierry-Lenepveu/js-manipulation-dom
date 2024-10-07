@@ -1,5 +1,3 @@
-import "./style.css";
-
 const animalsToAdopt = [
     {
       name: "Lucky",
@@ -27,4 +25,49 @@ const animalsToAdopt = [
         "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Highlander-7.jpg/293px-Highlander-7.jpg"
     }
   ];
-  
+
+function createCard(animal, divElement) {
+    
+    let figureElement = createFigure(animal);
+
+    divElement.appendChild(figureElement);
+}
+
+function createFigure(animal) {
+    let figureElement = document.createElement("figure");
+
+    // create img node.
+    let imageElement = document.createElement("img");
+    imageElement.classList.add("card-body");
+    imageElement.src = animal.picture;
+    figureElement.appendChild(imageElement);
+
+    let figcaptionElement = createFigCaption(animal.name);
+    figureElement.appendChild(figcaptionElement);
+
+    return figureElement;
+}
+
+function createFigCaption(animalName) {
+    let figcaptionElement = document.createElement("figcaption");
+    figcaptionElement.classList.add("card-body");
+
+    let h2TitleElement = document.createElement("h2");
+    h2TitleElement.classList.add("card-title");
+    h2TitleElement.innerHTML = animalName;
+    figcaptionElement.appendChild(h2TitleElement);
+
+    let buttonElement = document.createElement("button");
+    buttonElement.classList.add("card-button");
+    buttonElement.innerHTML = "Adopt Now";
+    buttonElement.addEventListener("click", function() {
+        alert(`${animalName} adopted !`)
+    } );
+    figcaptionElement.appendChild(buttonElement);
+
+    return figcaptionElement;
+}
+
+let divElement = document.querySelector("div.cards");
+animalsToAdopt.forEach( item => createCard(item, divElement) );
+
